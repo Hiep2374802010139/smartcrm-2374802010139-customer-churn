@@ -1,0 +1,23 @@
+# Bi mat
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Du lieu lon
+data/raw/
+models/*.pkl
+models/*.pt
+models/*.h5
+models/*.joblib
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
