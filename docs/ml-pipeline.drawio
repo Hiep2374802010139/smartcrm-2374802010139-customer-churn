@@ -1,0 +1,112 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="ML Pipeline L10 - Phan loai yeu cau bao hanh" id="wK9IpbyZgsRoSEINQdaq">
+    <mxGraphModel dx="1030" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-1" parent="1" style="text;html=1;fontSize=16;fontStyle=1;align=center;verticalAlign=middle;fontColor=#1F4E79;" value="ML PIPELINE — LUỒNG L10: TỰ ĐỘNG PHÂN LOẠI YÊU CẦU BẢO HÀNH (Track AI)" vertex="1">
+          <mxGeometry height="30" width="900" x="500" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[1] NẠP DỮ LIỆU&#xa;src/data/load.py&#xa;─────────────────────────&#xa;• issue_descriptions.csv → DataFrame (4.000 dòng)&#xa;• Kiểm tra: số dòng, số cột, phân bố nhãn" vertex="1">
+          <mxGeometry height="100" width="600" x="650" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-3" edge="1" parent="1" source="mCLDinIbB1UFUJ5EYX5d-2" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" target="mCLDinIbB1UFUJ5EYX5d-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[2] LÀM SẠCH VĂN BẢN&#xa;src/features/clean.py&#xa;─────────────────────────&#xa;• Chuẩn hóa chữ thường, bỏ khoảng trắng thừa&#xa;• Loại bỏ thông tin định danh (số điện thoại, serial)&#xa;• KHÔNG bỏ dấu tiếng Việt (giữ tín hiệu phân loại)" vertex="1">
+          <mxGeometry height="120" width="600" x="650" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-5" edge="1" parent="1" source="mCLDinIbB1UFUJ5EYX5d-4" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" target="mCLDinIbB1UFUJ5EYX5d-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[3] CHIA DỮ LIỆU  ← BẮT BUỘC trước khi fit vectorizer&#xa;src/data/split.py&#xa;─────────────────────────&#xa;• train 70% / val 15% / test 15%&#xa;• Stratify theo nhãn, random_state=42" vertex="1">
+          <mxGeometry height="120" width="600" x="650" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-7" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=11;align=left;spacingLeft=8;spacingTop=5;verticalAlign=top;" value="⚠ CẢNH BÁO CHỐNG RÒ RỈ DỮ LIỆU&#xa;─────────────────────────&#xa;Chia dữ liệu TRƯỚC rồi mới fit vectorizer TRÊN TRAIN.&#xa;&#xa;Nếu fit TF-IDF trên toàn bộ dữ liệu → RÒ RỈ DỮ LIỆU&#xa;(dữ liệu test bị lộ vào quá trình huấn luyện).&#xa;&#xa;Tuân thủ QT-11: nhãn category_id được gán SAU khi&#xa;phiếu xử lý xong → KHÔNG dùng làm feature." vertex="1">
+          <mxGeometry height="150" width="280" x="1280" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-8" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#D79B00;strokeWidth=1.5;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="660" as="sourcePoint" />
+            <mxPoint x="1280" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-9" edge="1" parent="1" source="mCLDinIbB1UFUJ5EYX5d-6" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" target="mCLDinIbB1UFUJ5EYX5d-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[4] TẠO ĐẶC TRƯNG&#xa;src/features/vectorize.py&#xa;─────────────────────────&#xa;• TF-IDF với ngram (1,2), min_df=2, max_features=20.000&#xa;• fit trên TRAIN, chỉ transform trên VAL và TEST" vertex="1">
+          <mxGeometry height="110" width="600" x="650" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-11" edge="1" parent="1" source="mCLDinIbB1UFUJ5EYX5d-10" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" target="mCLDinIbB1UFUJ5EYX5d-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#B7791F;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[5] HUẤN LUYỆN&#xa;src/model/train.py&#xa;─────────────────────────&#xa;• baseline_0: DummyClassifier (most_frequent)&#xa;• baseline_1: LogisticRegression&#xa;• model_2: LinearSVC" vertex="1">
+          <mxGeometry height="120" width="600" x="650" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-13" edge="1" parent="1" source="mCLDinIbB1UFUJ5EYX5d-12" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" target="mCLDinIbB1UFUJ5EYX5d-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[6] ĐÁNH GIÁ&#xa;src/model/evaluate.py&#xa;─────────────────────────&#xa;• Metric chính: Macro F1 (ngưỡng ≥ 0,70)&#xa;• Báo cáo: accuracy, F1 từng lớp, Confusion Matrix&#xa;• Chọn mô hình tốt nhất trên VAL&#xa;• Chỉ báo cáo kết quả cuối trên TEST MỘT LẦN" vertex="1">
+          <mxGeometry height="130" width="600" x="650" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-15" edge="1" parent="1" source="mCLDinIbB1UFUJ5EYX5d-14" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" target="mCLDinIbB1UFUJ5EYX5d-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7B1FA2;strokeWidth=2;fontSize=12;align=left;spacingLeft=10;verticalAlign=middle;" value="[7] ĐÓNG GÓI &amp; PHỤC VỤ&#xa;src/serve/api.py&#xa;─────────────────────────&#xa;• joblib lưu vectorizer + model&#xa;• FastAPI: POST /predict  |  GET /health&#xa;• Trả về: { predicted_category, confidence }" vertex="1">
+          <mxGeometry height="120" width="600" x="650" y="1260" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-17" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFCCCC;strokeColor=#CC0000;fontSize=11;align=left;spacingLeft=8;spacingTop=5;verticalAlign=top;" value="NGUYÊN TẮC BẮT BUỘC (theo BT1 &amp; QT-11)&#xa;─────────────────────────&#xa;1. Chia dữ liệu TRƯỚC khi tạo đặc trưng → tránh rò rỉ.&#xa;&#xa;2. Tập TEST chỉ dùng MỘT LẦN — mọi quyết định chọn mô hình&#xa;   dựa trên VALIDATION.&#xa;&#xa;3. Tái lập được: cùng random_seed=42 → cùng kết quả&#xa;   (Macro F1 sai khác ≤ 0,001).&#xa;&#xa;4. Nhãn category_id gán SAU khi phiếu đóng → KHÔNG dùng&#xa;   làm feature (tuân thủ QT-11)." vertex="1">
+          <mxGeometry height="300" width="280" x="1280" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-18" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#D5E8D4;strokeColor=#2E7D32;fontSize=11;align=left;spacingLeft=8;spacingTop=5;verticalAlign=top;" value="INPUT / OUTPUT&#xa;─────────────────────────&#xa;• Input:  chuỗi mô tả lỗi tiếng Việt&#xa;          (độ dài ≤ 512 ký tự)&#xa;&#xa;• Output: { predicted_category,&#xa;           confidence }&#xa;&#xa;• Loại bài toán: Phân loại văn bản&#xa;  nhiều lớp (6 lớp)&#xa;&#xa;• Nguồn dữ liệu: issue_descriptions.csv&#xa;• Số mẫu: 4.000&#xa;• Metric chính: Macro F1 ≥ 0,70" vertex="1">
+          <mxGeometry height="250" width="250" x="370" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-19" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#999999;" value="" vertex="1">
+          <mxGeometry height="250" width="250" x="370" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-20" parent="1" style="text;html=1;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;fontColor=#1F4E79;" value="CHÚ THÍCH KÝ HIỆU" vertex="1">
+          <mxGeometry height="25" width="250" x="370" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1F4E79;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="385" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-22" parent="1" style="text;html=1;fontSize=11;align=left;verticalAlign=middle;" value="Bước xử lý dữ liệu" vertex="1">
+          <mxGeometry height="22" width="195" x="425" y="339" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#2E7D32;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="385" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-24" parent="1" style="text;html=1;fontSize=11;align=left;verticalAlign=middle;" value="Bước quan trọng (chia dữ liệu, đánh giá)" vertex="1">
+          <mxGeometry height="22" width="195" x="425" y="369" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#B7791F;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="385" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-26" parent="1" style="text;html=1;fontSize=11;align=left;verticalAlign=middle;" value="Bước huấn luyện mô hình" vertex="1">
+          <mxGeometry height="22" width="195" x="425" y="399" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#7B1FA2;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="385" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-28" parent="1" style="text;html=1;fontSize=11;align=left;verticalAlign=middle;" value="Bước đóng gói &amp; phục vụ" vertex="1">
+          <mxGeometry height="22" width="195" x="425" y="429" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-29" edge="1" parent="1" style="endArrow=block;html=1;strokeColor=#333333;strokeWidth=2;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="470" as="sourcePoint" />
+            <mxPoint x="425" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-30" parent="1" style="text;html=1;fontSize=11;align=left;verticalAlign=middle;" value="Luồng xử lý tuần tự" vertex="1">
+          <mxGeometry height="22" width="185" x="435" y="459" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-31" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#FFE6CC;strokeColor=#D79B00;" value="" vertex="1">
+          <mxGeometry height="20" width="30" x="385" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="mCLDinIbB1UFUJ5EYX5d-32" parent="1" style="text;html=1;fontSize=11;align=left;verticalAlign=middle;" value="Cảnh báo / ghi chú" vertex="1">
+          <mxGeometry height="22" width="195" x="425" y="499" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
